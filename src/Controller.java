@@ -26,7 +26,7 @@ public class Controller{
         writeToCSV(combined);
     }
 
-    private ArrayList<Integer> runInstance(boolean purposed){
+    private ArrayList<Integer> runInstance(boolean proposed){
         ArrayList<Integer> kill_list = new ArrayList<>();
         int current_iteration = 0;
 
@@ -34,7 +34,7 @@ public class Controller{
             kill_count = 0;
             current_iteration = 0;
             while (current_iteration < max_iterations) {
-                MAPEK mape_k = new MAPEK(macro_tactics, purposed);
+                MAPEK mape_k = new MAPEK(macro_tactics, proposed);
                 mape_k.runMAPEK(GLOBAL_SYMPTOM);
 
                 current_iteration++;
