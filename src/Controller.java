@@ -16,6 +16,8 @@ public class Controller{
         this.max_iterations = max_iterations;
         this.macro_tactics = macro_tactics;
 
+        ArrayList<Integer> kill_list = new ArrayList<>();
+
         while(cycle < MAX_CYCLES) {
             kill_count = 0;
             current_iteration = 0;
@@ -27,7 +29,10 @@ public class Controller{
             }
             cycle++;
             System.out.printf("kills: %d   runs: %d  \n", Controller.kill_count, 100);
+            kill_list.add(Controller.kill_count);
         }
+
+        System.out.println(kill_list);
     }
     
     public static void main(String[] args){
