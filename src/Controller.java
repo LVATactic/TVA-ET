@@ -47,7 +47,7 @@ public class Controller{
         return critical_failures_list;
     }
 
-    private void writeToCSV(ArrayList<ArrayList<Integer>> lists){g
+    private void writeToCSV(ArrayList<ArrayList<Integer>> lists){
         String csv_buffer = "Baseline (Critical Failures),Proposed (Critical Failures)\n";
         try{
             FileWriter writer = new FileWriter("output/data.csv");
