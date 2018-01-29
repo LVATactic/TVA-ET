@@ -12,7 +12,7 @@ public class MAPEK{
     public void runMAPEK(){
         List<Double> utilities = getTacticUtility();
         System.out.println(utilities);
-    };
+    }
 
     public List<Double> getTacticUtility(){
         List<Double> utilities = new ArrayList<>();
@@ -50,6 +50,6 @@ public class MAPEK{
             sum += Math.pow(latencies.get(i) - mean, 2);
         }
 
-        return Math.sqrt(sum/(latencies.size()-1));
+        return Math.sqrt(sum/(latencies.size()));
     }
 }
