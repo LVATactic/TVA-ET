@@ -5,9 +5,11 @@ import java.util.Random;
 
 public class MAPEK{
     private HashMap<Integer, List<Integer>> macro_tactics;
+    private boolean purposed;
 
-    public MAPEK(HashMap<Integer, List<Integer>> macro_tactics){
+    public MAPEK(HashMap<Integer, List<Integer>> macro_tactics, boolean purposed){
         this.macro_tactics = macro_tactics;
+        this.purposed = purposed;
     }
 
     public void runMAPEK(int global_sympton){
@@ -25,7 +27,11 @@ public class MAPEK{
 
             double mean = getLatencyMean(latencies);
             double sd = getStandardDeviation(latencies);
-            double utility = ((14 - mean)*8)/sd;
+            double utility = ((14 - mean)*8);
+
+            if(this.purposed){
+                utility /= sd;
+            }
 
             utilities.put(key, utility);
         }

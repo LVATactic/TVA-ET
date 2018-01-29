@@ -19,13 +19,23 @@ public class Controller{
         this.max_iterations = max_iterations;
         this.macro_tactics = macro_tactics;
 
+        ArrayList<ArrayList<Integer>> combined = new ArrayList<>();
+
+        combined.add(runInstance(false)); // Baseline
+        combined.add(runInstance(true)); // Purposed algorithm
+
+//        writeToCSV(combined);
+        System.out.println(combined);
+    }
+
+    private ArrayList<Integer> runInstance(boolean purposed){
         ArrayList<Integer> kill_list = new ArrayList<>();
 
         while(cycle < MAX_CYCLES) {
             kill_count = 0;
             current_iteration = 0;
             while (current_iteration < max_iterations) {
-                MAPEK mape_k = new MAPEK(macro_tactics);
+                MAPEK mape_k = new MAPEK(macro_tactics, purposed);
                 mape_k.runMAPEK(GLOBAL_SYMPTOM);
 
                 current_iteration++;
@@ -35,8 +45,7 @@ public class Controller{
             kill_list.add(Controller.kill_count);
         }
 
-        writeToCSV(kill_list);
-        System.out.println(kill_list);
+        return kill_list;
     }
     
     public static void main(String[] args){
@@ -76,7 +85,7 @@ public class Controller{
             for(int x = 0; x < list.size(); x++){
                 list2.add(list.get(x).toString());
             }
-            String collect = list2.stream().collect(Collectors.joining(","));
+            String collect = list2.stream().collect(Collectors.joining("\n"));
             writer.write(collect);
             writer.close();
 
