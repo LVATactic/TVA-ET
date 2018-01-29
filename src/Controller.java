@@ -9,7 +9,7 @@ public class Controller{
     private int cycle = 0;
     private final int GLOBAL_SYMPTOM = 10;
 
-    static final private int MAX_CYCLES = 100;
+    static final private int MAX_CYCLES = 1000;
     static final public int MAX_THRESHOLD = 5;
     static public int critical_failure_count = 0;
 
@@ -24,10 +24,9 @@ public class Controller{
         combined.add(runInstance(true)); // Purposed algorithm
 
         writeToCSV(combined);
-        System.out.println(combined);
     }
 
-    private ArrayList<Integer> runInstance(boolean purposed){
+    private ArrayList<Integer> runInstance(boolean proposed){
         ArrayList<Integer> critical_failures_list = new ArrayList<>();
         int current_iteration = 0;
 
@@ -35,7 +34,7 @@ public class Controller{
             critical_failure_count = 0;
             current_iteration = 0;
             while (current_iteration < max_iterations) {
-                MAPEK mape_k = new MAPEK(macro_tactics, purposed);
+                MAPEK mape_k = new MAPEK(macro_tactics, proposed);
                 mape_k.runMAPEK(GLOBAL_SYMPTOM);
 
                 current_iteration++;
@@ -51,7 +50,7 @@ public class Controller{
     private void writeToCSV(ArrayList<ArrayList<Integer>> lists){g
         String csv_buffer = "Baseline (Critical Failures),Proposed (Critical Failures)\n";
         try{
-            FileWriter writer = new FileWriter("data.csv");
+            FileWriter writer = new FileWriter("output/data.csv");
 
             ArrayList<Integer> baseline = lists.get(0);
             ArrayList<Integer> proposed = lists.get(1);
