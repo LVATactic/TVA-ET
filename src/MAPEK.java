@@ -11,12 +11,12 @@ public class MAPEK{
     }
 
     public void runMAPEK(){
-        List<Double> utilities = getTacticUtility();
+        HashMap<Integer, Double> utilities = getTacticUtility();
         System.out.println(utilities);
     }
 
-    public List<Double> getTacticUtility(){
-        List<Double> utilities = new ArrayList<>();
+    private HashMap<Integer, Double> getTacticUtility(){
+        HashMap<Integer, Double> utilities = new HashMap<>();
 
         //for each key in hashmap
         for(Integer key : macro_tactics.keySet()){
@@ -26,14 +26,14 @@ public class MAPEK{
             double sd = getStandardDeviation(latencies);
             double utility = ((14 - mean)*8)/sd;
 
-            utilities.add(utility);
+            utilities.put(key, utility);
         }
 
         selectTactic(utilities);
         return utilities;
     }
 
-    public double getLatencyMean(List<Integer> latencies){
+    private double getLatencyMean(List<Integer> latencies){
         double mean = 0;
 
         //calculate mean
@@ -44,7 +44,7 @@ public class MAPEK{
         return mean / latencies.size();
     }
 
-    public double getStandardDeviation(List<Integer> latencies){
+    private double getStandardDeviation(List<Integer> latencies){
         double sum = 0;
         double mean = getLatencyMean(latencies);
 
@@ -56,9 +56,16 @@ public class MAPEK{
         return Math.sqrt(sum/(latencies.size()));
     }
 
-    public int selectTactic(List<Double> utilities){
-        double max_utility =  utilities.get(utilities.size()-1);
+    private int selectTactic(HashMap<Integer, Double> utilities){
+        int highest_key = 0;
+        double highest_value = 0;
+        for(int key : utilities.keySet()){
+            if (utilities.get(key) > highest_value){
+                highest_key = key;
+                highest_value = utilities.get(key);
+            }
+        }
 
-        return 2;
+        return highest_key;
     }
 }
