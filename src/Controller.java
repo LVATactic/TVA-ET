@@ -11,7 +11,7 @@ public class Controller{
 
     static final private int MAX_CYCLES = 100;
     static final public int MAX_THRESHOLD = 5;
-    static public int kill_count = 0;
+    static public int critical_failure_count = 0;
 
 
     public Controller(int max_iterations, HashMap<Integer, List<Integer>> macro_tactics){
@@ -28,11 +28,11 @@ public class Controller{
     }
 
     private ArrayList<Integer> runInstance(boolean purposed){
-        ArrayList<Integer> kill_list = new ArrayList<>();
+        ArrayList<Integer> critical_failures_list = new ArrayList<>();
         int current_iteration = 0;
 
         while(cycle < MAX_CYCLES) {
-            kill_count = 0;
+            critical_failure_count = 0;
             current_iteration = 0;
             while (current_iteration < max_iterations) {
                 MAPEK mape_k = new MAPEK(macro_tactics, purposed);
@@ -41,15 +41,15 @@ public class Controller{
                 current_iteration++;
             }
             cycle++;
-            kill_list.add(Controller.kill_count);
+            critical_failures_list.add(Controller.critical_failure_count);
         }
 
         cycle = 0;
-        return kill_list;
+        return critical_failures_list;
     }
 
-    private void writeToCSV(ArrayList<ArrayList<Integer>> lists){
-        String csv_buffer = "Baseline (Kills),Proposed (Kills)\n";
+    private void writeToCSV(ArrayList<ArrayList<Integer>> lists){g
+        String csv_buffer = "Baseline (Critical Failures),Proposed (Critical Failures)\n";
         try{
             FileWriter writer = new FileWriter("data.csv");
 

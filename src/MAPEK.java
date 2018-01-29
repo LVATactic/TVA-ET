@@ -82,7 +82,7 @@ public class MAPEK{
         double latency_time = r.nextGaussian()*sd + mean;
 
         if(latency_time > Controller.MAX_THRESHOLD){
-            Controller.kill_count++;
+            Controller.critical_failure_count++;
         }
     }
 }
