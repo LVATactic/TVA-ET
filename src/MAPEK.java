@@ -69,7 +69,6 @@ public class MAPEK{
             }
         }
 
-        System.out.println(highest_key);
         return highest_key;
     }
 

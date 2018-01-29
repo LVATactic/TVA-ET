@@ -4,8 +4,10 @@ public class Controller{
     private HashMap<Integer, List<Integer>> macro_tactics = new HashMap<Integer, List<Integer>>();
     private int max_iterations;
     private int current_iteration = 0;
+    private int cycle = 0;
     public int global_symptom = 10;
 
+    static final public int MAX_CYCLES = 100;
     static final public int MAX_THRESHOLD = 5;
     static public int kill_count = 0;
 
@@ -14,13 +16,18 @@ public class Controller{
         this.max_iterations = max_iterations;
         this.macro_tactics = macro_tactics;
 
-        while (current_iteration < max_iterations){
-            MAPEK mape_k = new MAPEK(macro_tactics);
-            mape_k.runMAPEK(global_symptom);
+        while(cycle < MAX_CYCLES) {
+            kill_count = 0;
+            current_iteration = 0;
+            while (current_iteration < max_iterations) {
+                MAPEK mape_k = new MAPEK(macro_tactics);
+                mape_k.runMAPEK(global_symptom);
 
-            current_iteration++;
+                current_iteration++;
+            }
+            cycle++;
+            System.out.printf("kills: %d   runs: %d  \n", Controller.kill_count, 100);
         }
-        System.out.printf("kills: %d   runs: %d  \n",Controller.kill_count, 100);
     }
     
     public static void main(String[] args){
@@ -32,7 +39,7 @@ public class Controller{
                 5,5,4,4,4,4,4,3,5,3,5,3,5,3,3,3,5,3,3,2,2,4,2,2,5,5);
         tactics.put(0, group1);
 
-        List<Double> double_list = Arrays.asList(4.456007,4.082313,3.205769,4.8067,3.364271,3.110964,3.623682,
+        /*List<Double> double_list = Arrays.asList(4.456007,4.082313,3.205769,4.8067,3.364271,3.110964,3.623682,
                 4.618294,3.851474,3.121866,5.26111,3.027258,5.289699,3.322588,6.60101,3.413137,4.616915,4.896913,
                 4.990854,2.861065,5.818246,4.988922,3.796863,6.216643,4.63566,3.679681,5.094256,2.637219,3.725739,
                 3.034386,4.669752,4.94273,4.163923,3.341056,3.90376,4.301815,4.186967,4.670776,4.017151,5.190965,
@@ -47,7 +54,7 @@ public class Controller{
         for(int x = 0; x < double_list.size(); x++){
             final_cast.add(double_list.get(x).intValue());
         }
-        tactics.put(1, final_cast);
+        tactics.put(1, final_cast);*/
 
         new Controller(100, tactics);
     }
