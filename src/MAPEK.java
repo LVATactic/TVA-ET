@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class MAPEK{
     private HashMap<Integer, List<Integer>> macro_tactics;
 
@@ -28,6 +29,7 @@ public class MAPEK{
             utilities.add(utility);
         }
 
+        selectTactic(utilities);
         return utilities;
     }
 
@@ -38,6 +40,7 @@ public class MAPEK{
         for(int i=0; i< latencies.size(); i++) {
             mean = mean + latencies.get(i);
         }
+
         return mean / latencies.size();
     }
 
@@ -51,5 +54,11 @@ public class MAPEK{
         }
 
         return Math.sqrt(sum/(latencies.size()));
+    }
+
+    public int selectTactic(List<Double> utilities){
+        double max_utility =  utilities.get(utilities.size()-1);
+
+        return 2;
     }
 }
