@@ -4,6 +4,11 @@ public class Controller{
     private HashMap<Integer, List<Integer>> macro_tactics = new HashMap<Integer, List<Integer>>();
     private int max_iterations;
     private int current_iteration = 0;
+    public int global_symptom = 10;
+
+    static final public int MAX_THRESHOLD = 10;
+    static public int kill_count = 0;
+
 
     public Controller(int max_iterations, HashMap<Integer, List<Integer>> macro_tactics){
         this.max_iterations = max_iterations;
@@ -11,10 +16,11 @@ public class Controller{
 
         while (current_iteration < max_iterations){
             MAPEK mape_k = new MAPEK(macro_tactics);
-            mape_k.runMAPEK();
+            mape_k.runMAPEK(global_symptom);
 
             current_iteration++;
         }
+        System.out.printf("kills: %d   runs: %d  \n",Controller.kill_count, 10);
     }
     
     public static void main(String[] args){

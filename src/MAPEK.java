@@ -1,6 +1,7 @@
-import java.util.ArrayList;
+import javax.naming.ldap.Control;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 
 public class MAPEK{
@@ -10,9 +11,10 @@ public class MAPEK{
         this.macro_tactics = macro_tactics;
     }
 
-    public void runMAPEK(){
-        HashMap<Integer, Double> utilities = getTacticUtility();
-        System.out.println(utilities);
+    public void runMAPEK(int global_sympton){
+        if(global_sympton > 5){
+            getTacticUtility();
+        }
     }
 
     private HashMap<Integer, Double> getTacticUtility(){
@@ -29,7 +31,8 @@ public class MAPEK{
             utilities.put(key, utility);
         }
 
-        selectTactic(utilities);
+        int tactic_index = selectTactic(utilities);
+        executeTactic(getLatencyMean(macro_tactics.get(tactic_index)), getStandardDeviation(macro_tactics.get(tactic_index)));
         return utilities;
     }
 
@@ -67,5 +70,14 @@ public class MAPEK{
         }
 
         return highest_key;
+    }
+
+    private void executeTactic(double mean, double sd){
+        Random r = new Random();
+        double latency_time = r.nextGaussian()*sd + mean;
+
+        if(latency_time > Controller.MAX_THRESHOLD){
+            Controller.kill_count++;
+        }
     }
 }
