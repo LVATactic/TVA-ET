@@ -1,4 +1,7 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Controller{
     private HashMap<Integer, List<Integer>> macro_tactics = new HashMap<Integer, List<Integer>>();
@@ -32,6 +35,7 @@ public class Controller{
             kill_list.add(Controller.kill_count);
         }
 
+        writeToCSV(kill_list);
         System.out.println(kill_list);
     }
     
@@ -62,5 +66,24 @@ public class Controller{
         tactics.put(1, final_cast);
 
         new Controller(100, tactics);
+    }
+
+    public void writeToCSV(List<Integer> list){
+        try{
+            FileWriter writer = new FileWriter("data.csv");
+
+            List<String> list2 = new ArrayList<>();
+            for(int x = 0; x < list.size(); x++){
+                list2.add(list.get(x).toString());
+            }
+            String collect = list2.stream().collect(Collectors.joining(","));
+            writer.write(collect);
+            writer.close();
+
+        }catch(IOException e){
+            System.out.println("fuck.");
+        }
+
+
     }
 }
