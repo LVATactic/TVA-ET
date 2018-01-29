@@ -10,7 +10,7 @@ public class Controller{
     private int cycle = 0;
     private final int GLOBAL_SYMPTOM = 10;
 
-    static final private int MAX_CYCLES = 100;
+    static final private int MAX_CYCLES = 1000;
     static final public int MAX_THRESHOLD = 5;
     static public int kill_count = 0;
 
@@ -25,7 +25,6 @@ public class Controller{
         combined.add(runInstance(true)); // Purposed algorithm
 
         writeToCSV(combined);
-        System.out.println(combined);
     }
 
     private ArrayList<Integer> runInstance(boolean purposed){
@@ -41,7 +40,6 @@ public class Controller{
                 current_iteration++;
             }
             cycle++;
-            System.out.printf("kills: %d   runs: %d  \n", Controller.kill_count, 100);
             kill_list.add(Controller.kill_count);
         }
 
@@ -52,7 +50,7 @@ public class Controller{
     public void writeToCSV(ArrayList<ArrayList<Integer>> lists){
         String csv_buffer = "Baseline (Kills),Proposed (Kills)\n";
         try{
-            FileWriter writer = new FileWriter("data.csv");
+            FileWriter writer = new FileWriter("output/data.csv");
 
             ArrayList<Integer> baseline = lists.get(0);
             ArrayList<Integer> proposed = lists.get(1);
