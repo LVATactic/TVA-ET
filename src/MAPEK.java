@@ -2,19 +2,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import java.lang.Math;
-
 public class MAPEK{
-    public MAPEK(){
-        
+    private HashMap<Integer, List<Integer>> macro_tactics;
+
+    public MAPEK(HashMap<Integer, List<Integer>> macro_tactics){
+        this.macro_tactics = macro_tactics;
     }
 
-    public List<Double> getTacticUtility(HashMap<Integer, List<Integer>> map){
+    public void runMAPEK(){
+        List<Double> utilities = getTacticUtility();
+        System.out.println(utilities);
+    };
+
+    public List<Double> getTacticUtility(){
         List<Double> utilities = new ArrayList<>();
 
         //for each key in hashmap
-        for(Integer key : map.keySet()){
-            List<Integer> latencies = map.get(key);
+        for(Integer key : macro_tactics.keySet()){
+            List<Integer> latencies = macro_tactics.get(key);
 
             double mean = getLatencyMean(latencies);
             double sd = getStandardDeviation(latencies);
