@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 public class Controller{
     private HashMap<Integer, List<Integer>> macro_tactics = new HashMap<Integer, List<Integer>>();
     private int max_iterations;
-    private int current_iteration = 0;
     private int cycle = 0;
     private final int GLOBAL_SYMPTOM = 10;
 
@@ -29,6 +28,7 @@ public class Controller{
 
     private ArrayList<Integer> runInstance(boolean purposed){
         ArrayList<Integer> kill_list = new ArrayList<>();
+        int current_iteration = 0;
 
         while(cycle < MAX_CYCLES) {
             kill_count = 0;
@@ -47,7 +47,7 @@ public class Controller{
         return kill_list;
     }
 
-    public void writeToCSV(ArrayList<ArrayList<Integer>> lists){
+    private void writeToCSV(ArrayList<ArrayList<Integer>> lists){
         String csv_buffer = "Baseline (Kills),Proposed (Kills)\n";
         try{
             FileWriter writer = new FileWriter("output/data.csv");
@@ -64,7 +64,7 @@ public class Controller{
             writer.close();
 
         }catch(IOException e){
-            System.out.println("fuck.");
+            System.err.println("Unable to write CSV file. Please check directory/file permissions.");
         }
     }
     
