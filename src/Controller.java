@@ -24,7 +24,7 @@ public class Controller{
         combined.add(runInstance(false)); // Baseline
         combined.add(runInstance(true)); // Purposed algorithm
 
-//        writeToCSV(combined);
+        writeToCSV(combined);
         System.out.println(combined);
     }
 
@@ -45,7 +45,29 @@ public class Controller{
             kill_list.add(Controller.kill_count);
         }
 
+        cycle = 0;
         return kill_list;
+    }
+
+    public void writeToCSV(ArrayList<ArrayList<Integer>> lists){
+        String csv_buffer = "Baseline (Kills),Proposed (Kills)\n";
+        try{
+            FileWriter writer = new FileWriter("data.csv");
+
+            ArrayList<Integer> baseline = lists.get(0);
+            ArrayList<Integer> proposed = lists.get(1);
+
+            for(int i = 0; i < baseline.size(); i++){
+                String line = baseline.get(i) + "," + proposed.get(i) + "\n";
+                csv_buffer += line;
+            }
+
+            writer.write(csv_buffer);
+            writer.close();
+
+        }catch(IOException e){
+            System.out.println("fuck.");
+        }
     }
     
     public static void main(String[] args){
@@ -75,24 +97,5 @@ public class Controller{
         tactics.put(1, final_cast);
 
         new Controller(100, tactics);
-    }
-
-    public void writeToCSV(List<Integer> list){
-        try{
-            FileWriter writer = new FileWriter("data.csv");
-
-            List<String> list2 = new ArrayList<>();
-            for(int x = 0; x < list.size(); x++){
-                list2.add(list.get(x).toString());
-            }
-            String collect = list2.stream().collect(Collectors.joining("\n"));
-            writer.write(collect);
-            writer.close();
-
-        }catch(IOException e){
-            System.out.println("fuck.");
-        }
-
-
     }
 }
