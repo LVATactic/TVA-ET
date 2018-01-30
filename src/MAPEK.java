@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class MAPEK{
@@ -25,8 +23,10 @@ public class MAPEK{
 
         //for each key in hashmap
         int latency = 0;
+        List<Integer> latencies = new ArrayList<Integer>();
+
         for(Integer key : macro_tactics.keySet()){
-            List<Integer> latencies = macro_tactics.get(key);
+            latencies = macro_tactics.get(key);
 
             //double mean = getLatencyMean(latencies);
             Random random = new Random();
@@ -43,7 +43,7 @@ public class MAPEK{
         }
 
         int tactic_index = selectTactic(utilities);
-        return executeTactic(getLatencyMean(macro_tactics.get(tactic_index)), getStandardDeviation(macro_tactics.get(tactic_index)),latency);
+        return executeTactic(getLatencyMean(macro_tactics.get(tactic_index)), getStandardDeviation(macro_tactics.get(tactic_index)),latency, latencies);
     }
 
     private double getLatencyMean(List<Integer> latencies){
@@ -82,14 +82,15 @@ public class MAPEK{
         return highest_key;
     }
 
-    private double executeTactic(double mean, double sd,int latency){
-        Random r = new Random();
-        double latency_time = r.nextGaussian()*sd + mean;
-
+    private double executeTactic(double mean, double sd, int latency, List<Integer> latencies){
+        Random random = new Random();
+        int randomInt = random.nextInt(latencies.size()-1);
+        double latency_time = latencies.get(randomInt);
 
         if(latency_time > Controller.MAX_THRESHOLD){
             Controller.critical_failure_count++;
         }
-        return latency - latency_time;
+
+        return (double)(latency - latency_time);
     }
 }
