@@ -1,5 +1,6 @@
 .idea/
 data.csv
+latency_diffs.csv
 # Created by https://www.gitignore.io/api/java,eclipse,netbeans,intellij
 
 ### Eclipse ###
