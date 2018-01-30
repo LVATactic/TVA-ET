@@ -13,6 +13,8 @@ public class Controller{
     static final public int MAX_THRESHOLD = 8;
     static public int critical_failure_count = 0;
 
+    public ArrayList<Double> differences;
+
 
     public Controller(int max_iterations, HashMap<Integer, List<Integer>> macro_tactics){
         this.max_iterations = max_iterations;
@@ -28,6 +30,7 @@ public class Controller{
 
     private ArrayList<Integer> runInstance(boolean proposed){
         ArrayList<Integer> critical_failures_list = new ArrayList<>();
+        this.differences = new ArrayList<>();
         int current_iteration = 0;
 
         while(cycle < MAX_CYCLES) {
@@ -35,7 +38,8 @@ public class Controller{
             current_iteration = 0;
             while (current_iteration < max_iterations) {
                 MAPEK mape_k = new MAPEK(macro_tactics, proposed);
-                mape_k.runMAPEK(GLOBAL_SYMPTOM);
+                double latency_difference = mape_k.runMAPEK(GLOBAL_SYMPTOM);
+                differences.add(latency_difference);
 
                 current_iteration++;
             }
@@ -44,6 +48,7 @@ public class Controller{
         }
 
         cycle = 0;
+        System.out.println(differences);
         return critical_failures_list;
     }
 

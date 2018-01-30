@@ -12,13 +12,15 @@ public class MAPEK{
         this.proposed = proposed;
     }
 
-    public void runMAPEK(int global_symptom){
+    public double runMAPEK(int global_symptom){
         if(global_symptom > 5){
-            getTacticUtility();
+            return getTacticUtility();
+        }else{
+            return getTacticUtility();
         }
     }
 
-    private HashMap<Integer, Double> getTacticUtility(){
+    private double getTacticUtility(){
         HashMap<Integer, Double> utilities = new HashMap<>();
 
         //for each key in hashmap
@@ -41,8 +43,7 @@ public class MAPEK{
         }
 
         int tactic_index = selectTactic(utilities);
-        executeTactic(getLatencyMean(macro_tactics.get(tactic_index)), getStandardDeviation(macro_tactics.get(tactic_index)),latency);
-        return utilities;
+        return executeTactic(getLatencyMean(macro_tactics.get(tactic_index)), getStandardDeviation(macro_tactics.get(tactic_index)),latency);
     }
 
     private double getLatencyMean(List<Integer> latencies){
@@ -81,13 +82,14 @@ public class MAPEK{
         return highest_key;
     }
 
-    private void executeTactic(double mean, double sd,int latency){
+    private double executeTactic(double mean, double sd,int latency){
         Random r = new Random();
         double latency_time = r.nextGaussian()*sd + mean;
-        System.out.printf("%d - %.2f = %.2f\n",latency,latency_time,(latency - latency_time));
+
 
         if(latency_time > Controller.MAX_THRESHOLD){
             Controller.critical_failure_count++;
         }
+        return latency - latency_time;
     }
 }
