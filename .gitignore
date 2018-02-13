@@ -1,6 +1,8 @@
 .idea/
 data.csv
 latency_diffs.csv
+output/
+*.iml
 # Created by https://www.gitignore.io/api/java,eclipse,netbeans,intellij
 
 ### Eclipse ###
