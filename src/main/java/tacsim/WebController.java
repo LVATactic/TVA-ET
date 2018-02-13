@@ -1,7 +1,24 @@
+package tacsim;
+
+import tacsim.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
-public class Runner {
-    public static void main(String[] args){
+@RestController
+@EnableAutoConfiguration
+public class WebController {
+
+    @RequestMapping("/tacsim")
+    public tacsim.Controller web_controller(){
+
         HashMap<Integer, List<Integer>> tactics = new HashMap<>();
 
         List<Integer> group1 = Arrays.asList(1,1,1,1,1,1,1,1,1,1,3,3,1,1,9,6,6,
@@ -27,6 +44,12 @@ public class Runner {
         }
         tactics.put(1, final_cast);
 
-        new Controller(100, tactics);
+        Controller instance = new Controller(100, tactics);
+
+        return instance;
+    }
+
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(WebController.class, args);
     }
 }
