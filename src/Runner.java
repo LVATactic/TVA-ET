@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Runner {
     public static void main(String[] args){
+        System.out.println("Simulation starting.....");
         HashMap<Integer, List<Integer>> tactics = new HashMap<>();
 
         List<Integer> group1 = Arrays.asList(1,1,1,1,1,1,1,1,1,1,3,3,1,1,9,6,6,
@@ -28,5 +29,6 @@ public class Runner {
         tactics.put(1, final_cast);
 
         new Controller(100, tactics);
+        System.out.println("Simulation over....");
     }
 }
