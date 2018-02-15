@@ -2,8 +2,8 @@ kill_data <- read.csv(file=file.choose(),fileEncoding="UTF-8-BOM",header=T)
 head(kill_data)
 
 ####### Libraries
-poop <- data.frame(kill_data)
-colnames(poop) <- c("Baseline","LVA")
+db_data <- data.frame(kill_data)
+colnames(db_data) <- c("Baseline","LVA")
 
 
 
@@ -41,4 +41,4 @@ densityFunction <- function(utility.df){
          col=colors, lty=1, cex=1.2)
 }
 
-densityFunction(poop)
+densityFunction(db_data)
