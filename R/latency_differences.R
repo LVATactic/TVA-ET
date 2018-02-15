@@ -16,3 +16,4 @@ wilcox.test(latency_differences$Baseline,latency_differences$TacSim)
 ### F-Test
 var.test(latency_differences$Baseline,latency_differences$TacSim)
 
+wilcox.test(kill_data$Baseline..Critical.Failures.,kill_data$TacSim..Critical.Failures.)
