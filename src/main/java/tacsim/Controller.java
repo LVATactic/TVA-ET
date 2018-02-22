@@ -11,7 +11,7 @@ public class Controller{
     private final int GLOBAL_SYMPTOM = 10;
 
     static final private int MAX_CYCLES = 50;
-    static final public int MAX_THRESHOLD = 8;
+    static final public int MAX_THRESHOLD = 5;
     static public int critical_failure_count = 0;
 
     private ArrayList<ArrayList<Double>> differences;

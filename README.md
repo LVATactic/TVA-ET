@@ -2,8 +2,8 @@
 
 
 ## Project Creators
-Stephen Cioffi<br />
 Jeff Palmerino
+Stephen Cioffi
 
 
 ### Description

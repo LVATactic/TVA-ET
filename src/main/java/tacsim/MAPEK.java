@@ -13,7 +13,7 @@ public class MAPEK{
     }
 
     public double runMAPEK(int global_symptom){
-        if(global_symptom > 5){
+        if(global_symptom > Controller.MAX_THRESHOLD){
             return getTacticUtility();
         }else{
             return getTacticUtility();
