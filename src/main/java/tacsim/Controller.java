@@ -45,6 +45,14 @@ public class Controller{
         return results;
     }
 
+    public ArrayList<ArrayList<Double>> getDifferences(){
+        ArrayList<ArrayList<Double>> results = new ArrayList<>();
+        results.add(differences.get(0));
+        results.add(differences.get(1));
+
+        return results;
+    }
+
     private ArrayList<Integer> runInstance(boolean proposed){
         ArrayList<Integer> critical_failures_list = new ArrayList<>();
         this.differences = new ArrayList<>();

@@ -19,6 +19,7 @@ import java.util.*;
 public class WebController {
     @RequestMapping(value = "/tacsim", method = RequestMethod.GET, produces = "application/json")
     public String TacSim(){
+        String json = "";
 
         HashMap<Integer, List<Integer>> tactics = new HashMap<>();
 
@@ -51,9 +52,9 @@ public class WebController {
         ArrayList<Integer> baseline = results.get(0);
         ArrayList<Integer> proposed = results.get(1);
 
-        String json = new Gson().toJson(results);
+        Results r = new Results(results, instance.getDifferences());
 
-        return json;
+        return new Gson().toJson(r, Results.class);
     }
 
     public static void main(String[] args) throws Exception {
