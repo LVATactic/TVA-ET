@@ -10,14 +10,15 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.google.gson.*;
+
 import java.util.*;
 
 @RestController
 @EnableAutoConfiguration
 public class WebController {
-
-    @RequestMapping("/tacsim")
-    public tacsim.Controller web_controller(){
+    @RequestMapping(value = "/tacsim", method = RequestMethod.GET, produces = "application/json")
+    public String TacSim(){
 
         HashMap<Integer, List<Integer>> tactics = new HashMap<>();
 
@@ -46,7 +47,13 @@ public class WebController {
 
         Controller instance = new Controller(100, tactics);
 
-        return instance;
+        ArrayList<ArrayList<Integer>> results = instance.getResults();
+        ArrayList<Integer> baseline = results.get(0);
+        ArrayList<Integer> proposed = results.get(1);
+
+        String json = new Gson().toJson(results);
+
+        return json;
     }
 
     public static void main(String[] args) throws Exception {

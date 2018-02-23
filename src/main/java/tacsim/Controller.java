@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import com.google.gson.*;
+
 public class Controller{
     private HashMap<Integer, List<Integer>> macro_tactics = new HashMap<Integer, List<Integer>>();
     private int max_iterations;
@@ -14,6 +16,7 @@ public class Controller{
     static final public int MAX_THRESHOLD = 5;
     static public int critical_failure_count = 0;
 
+    private ArrayList<ArrayList<Integer>> combined = new ArrayList<>();
     private ArrayList<ArrayList<Double>> differences;
 
 
@@ -21,12 +24,25 @@ public class Controller{
         this.max_iterations = max_iterations;
         this.macro_tactics = macro_tactics;
 
-        ArrayList<ArrayList<Integer>> combined = new ArrayList<>();
-
         combined.add(runInstance(false)); // Baseline
         combined.add(runInstance(true)); // Proposed algorithm
 
         writeToCSV(combined, differences);
+    }
+
+    public ArrayList<ArrayList<Integer>> getResults(){
+//        String[] results = new String[2];
+//
+//        results[0] = new Gson().toJson(combined.get(0)); // Baseline
+//        results[1] = new Gson().toJson(combined.get(1)); // Purposed
+//
+//        return results;
+
+        ArrayList<ArrayList<Integer>> results = new ArrayList<>();
+        results.add(combined.get(0));
+        results.add(combined.get(1));
+
+        return results;
     }
 
     private ArrayList<Integer> runInstance(boolean proposed){
