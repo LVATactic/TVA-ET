@@ -17,6 +17,7 @@ import java.util.*;
 @RestController
 @EnableAutoConfiguration
 public class WebController {
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/tacsim", method = RequestMethod.GET, produces = "application/json")
     public String TacSim(){
         String json = "";
