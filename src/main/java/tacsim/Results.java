@@ -6,10 +6,14 @@ import java.util.*;
 public class Results {
     private Result results;
     private Differences differences;
+    private String dataType = "Sample Data";
 
-    public Results(ArrayList<ArrayList<Integer>> results, ArrayList<ArrayList<Double>> differences){
+    public Results(ArrayList<ArrayList<Integer>> results, ArrayList<ArrayList<Double>> differences, boolean usingFile){
         this.results = new Result(results);
         this.differences = new Differences(differences);
+        if(usingFile){
+            dataType = "Custom Data Set";
+        }
     }
 }
 

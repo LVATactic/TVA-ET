@@ -87,7 +87,7 @@ public class WebController {
         ArrayList<Integer> baseline = results.get(0);
         ArrayList<Integer> proposed = results.get(1);
 
-        Results r = new Results(results, instance.getDifferences());
+        Results r = new Results(results, instance.getDifferences(), usingFile);
 
         return new Gson().toJson(r, Results.class);
     }
