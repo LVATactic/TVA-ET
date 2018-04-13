@@ -2,7 +2,7 @@
 
 
 ## Project Creators
-Jeff Palmerino<br />
+Jeff Palmerino
 Stephen Cioffi
 
 
