@@ -1,8 +1,8 @@
-# M-Tac: Multiple Tactic Latency Emulation tool
+# IS3: Intelligent Self-Adaptive Simulation System
 
 
 ## Project Creators
-Jeff Palmerino
+Jeff Palmerino  
 Stephen Cioffi
 
 
