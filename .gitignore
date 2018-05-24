@@ -4,6 +4,7 @@ latency_diffs.csv
 output/
 target/
 *.iml
+
 # Created by https://www.gitignore.io/api/java,eclipse,netbeans,intellij
 
 ### Eclipse ###
@@ -165,3 +166,6 @@ nbactions.xml
 
 
 # End of https://www.gitignore.io/api/java,eclipse,netbeans,intellij
+
+src\main\resources\application.properties
+./src/main/resources/application.properties
