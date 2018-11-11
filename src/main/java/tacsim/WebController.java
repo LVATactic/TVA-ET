@@ -67,18 +67,23 @@ public class WebController {
             }
             tactics.put(1, final_cast);
         } else {
-            double[] numbers = Arrays.asList(data
-                    .split(","))
-                    .stream()
-                    .map(String::trim)
-                    .mapToDouble(Double::parseDouble)
-                    .toArray();
-            ArrayList<Integer> values = new ArrayList<>();
-            for(Double num : numbers){
-                values.add(num.intValue());
-            }
+            String[] split_string = data.split("\\r?\\n");
 
-            tactics.put(0, values);
+            int index = 0;
+            for(String row : split_string) {
+                double[] numbers = Arrays.asList(data
+                        .split(","))
+                        .stream()
+                        .map(String::trim)
+                        .mapToDouble(Double::parseDouble)
+                        .toArray();
+                ArrayList<Integer> values = new ArrayList<>();
+                for (Double num : numbers) {
+                    values.add(num.intValue());
+                }
+
+                tactics.put(index++, values);
+            }
         }
 
         Controller instance = new Controller(100, tactics);
