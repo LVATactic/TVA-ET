@@ -39,6 +39,7 @@ public class MAPEK{
 
             if(this.proposed){
                 utility /= sd;
+                if(utility > 1){utility-=2;}
             }
 
             utilities.put(key, utility);

@@ -12,7 +12,7 @@ public class Controller{
     private int cycle = 0;
     private final int GLOBAL_SYMPTOM = 10;
 
-    static final private int MAX_CYCLES = 50;
+    static final private int MAX_CYCLES = 10000;
     static final public int MAX_THRESHOLD = 5;
     static public int critical_failure_count = 0;
 
