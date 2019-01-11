@@ -11,18 +11,24 @@ public class Controller{
     private int max_iterations;
     private int cycle = 0;
     private final int GLOBAL_SYMPTOM = 10;
+    private HashMap<String, String> settings;
 
     static final private int MAX_CYCLES = 10000;
-    static final public int MAX_THRESHOLD = 5;
+    static public int MAX_THRESHOLD = 5;
     static public int critical_failure_count = 0;
 
     private ArrayList<ArrayList<Integer>> combined = new ArrayList<>();
     private ArrayList<ArrayList<Double>> differences;
 
 
-    public Controller(int max_iterations, HashMap<Integer, List<Integer>> macro_tactics){
+    public Controller(int max_iterations, HashMap<Integer, List<Integer>> macro_tactics, HashMap<String, String> settings){
         this.max_iterations = max_iterations;
         this.macro_tactics = macro_tactics;
+        this.settings = settings;
+
+        if (settings.get("threshold") != null) {
+            Controller.MAX_THRESHOLD = Integer.parseInt(settings.get("threshold"));
+        }
 
         combined.add(runInstance(false)); // Baseline
         combined.add(runInstance(true)); // Proposed algorithm

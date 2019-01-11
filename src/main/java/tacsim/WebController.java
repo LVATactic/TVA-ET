@@ -23,9 +23,10 @@ public class WebController {
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/tacsim", method = RequestMethod.POST, produces = "application/json")
     public String TacSim(@RequestParam(value="file", required = false) MultipartFile file) throws IOException{
+        HashMap<String, String> settings = new HashMap<>();
+        settings.put("threshold", "5");
 
-//        File file = convert(f);
-        System.out.println(file);
+
         String data = "";
         boolean usingFile = false;
         if(file != null){
@@ -71,7 +72,7 @@ public class WebController {
 
             int index = 0;
             for(String row : split_string) {
-                double[] numbers = Arrays.asList(data
+                double[] numbers = Arrays.asList(row
                         .split(","))
                         .stream()
                         .map(String::trim)
@@ -86,13 +87,16 @@ public class WebController {
             }
         }
 
-        Controller instance = new Controller(100, tactics);
+        long startTime = System.currentTimeMillis();
+        Controller instance = new Controller(100, tactics, settings);
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
 
         ArrayList<ArrayList<Integer>> results = instance.getResults();
         ArrayList<Integer> baseline = results.get(0);
         ArrayList<Integer> proposed = results.get(1);
 
-        Results r = new Results(results, instance.getDifferences(), usingFile);
+        Results r = new Results(results, instance.getDifferences(), usingFile, elapsedTime);
 
         return new Gson().toJson(r, Results.class);
     }

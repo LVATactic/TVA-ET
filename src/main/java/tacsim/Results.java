@@ -7,10 +7,13 @@ public class Results {
     private Result results;
     private Differences differences;
     private String dataType = "Sample Data";
+    private long time;
 
-    public Results(ArrayList<ArrayList<Integer>> results, ArrayList<ArrayList<Double>> differences, boolean usingFile){
+    public Results(ArrayList<ArrayList<Integer>> results, ArrayList<ArrayList<Double>> differences, boolean usingFile, long time){
         this.results = new Result(results);
         this.differences = new Differences(differences);
+        this.time = time;
+
         if(usingFile){
             dataType = "Custom Data Set";
         }

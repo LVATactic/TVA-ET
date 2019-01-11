@@ -30,7 +30,7 @@ public class Runner {
         }
         tactics.put(1, final_cast);
 
-        new Controller(100, tactics);
+        new Controller(100, tactics, new HashMap<String, String>());
         System.out.println("Simulation over....");
     }
 }
