@@ -5,7 +5,8 @@
 
     <groupId>org.springframework</groupId>
     <artifactId>IS3</artifactId>
-    <version>0.1.0</version>
+    <version>0.5.0</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -36,6 +37,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <executable>true</executable>
                     <mainClass>tacsim.WebController</mainClass>
                 </configuration>
                 <executions>
