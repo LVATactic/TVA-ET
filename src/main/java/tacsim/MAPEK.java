@@ -4,10 +4,10 @@ import java.util.*;
 
 
 public class MAPEK{
-    private HashMap<Integer, List<Integer>> macro_tactics;
+    private HashMap<Integer, List<Double>> macro_tactics;
     private boolean proposed;
 
-    public MAPEK(HashMap<Integer, List<Integer>> macro_tactics, boolean proposed){
+    public MAPEK(HashMap<Integer, List<Double>> macro_tactics, boolean proposed){
         this.macro_tactics = macro_tactics;
         this.proposed = proposed;
     }
@@ -24,8 +24,8 @@ public class MAPEK{
         HashMap<Integer, Double> utilities = new HashMap<>();
 
         //for each key in hashmap
-        int latency = 0;
-        List<Integer> latencies = new ArrayList<Integer>();
+        double latency = 0;
+        List<Double> latencies = new ArrayList<Double>();
 
         for(Integer key : macro_tactics.keySet()){
             latencies = macro_tactics.get(key);
@@ -39,17 +39,20 @@ public class MAPEK{
 
             if(this.proposed){
                 utility /= sd;
-                if(utility > 1){utility-=2;}
+//                if(utility > 1){utility-=2;}
             }
 
             utilities.put(key, utility);
         }
 
         int tactic_index = selectTactic(utilities);
-        return executeTactic(getLatencyMean(macro_tactics.get(tactic_index)), getStandardDeviation(macro_tactics.get(tactic_index)),latency, latencies);
+        double run = executeTactic(getLatencyMean(macro_tactics.get(tactic_index)), getStandardDeviation(macro_tactics.get(tactic_index)),latency, latencies);
+        macro_tactics.get(tactic_index).add(run);
+
+        return run;
     }
 
-    private double getLatencyMean(List<Integer> latencies){
+    private double getLatencyMean(List<Double> latencies){
         double mean = 0;
 
         //calculate mean
@@ -60,7 +63,7 @@ public class MAPEK{
         return mean / latencies.size();
     }
 
-    private double getStandardDeviation(List<Integer> latencies){
+    private double getStandardDeviation(List<Double> latencies){
         double sum = 0;
         double mean = getLatencyMean(latencies);
 
@@ -85,7 +88,7 @@ public class MAPEK{
         return highest_key;
     }
 
-    private double executeTactic(double mean, double sd, int latency, List<Integer> latencies){
+    private double executeTactic(double mean, double sd, double latency, List<Double> latencies){
         Random random = new Random();
         int randomInt = random.nextInt(latencies.size()-1);
         double latency_time = latencies.get(randomInt);
@@ -94,6 +97,6 @@ public class MAPEK{
             Controller.critical_failure_count++;
         }
 
-        return (double)(latency - latency_time);
+        return latency - latency_time;
     }
 }

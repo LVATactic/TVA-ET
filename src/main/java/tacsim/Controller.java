@@ -7,13 +7,13 @@ import java.util.*;
 import com.google.gson.*;
 
 public class Controller{
-    private HashMap<Integer, List<Integer>> macro_tactics = new HashMap<Integer, List<Integer>>();
+    private HashMap<Integer, List<Double>> macro_tactics;
     private int max_iterations;
     private int cycle = 0;
     private final int GLOBAL_SYMPTOM = 10;
-    private HashMap<String, String> settings;
+    private Map<String, String> settings;
 
-    static final private int MAX_CYCLES = 10000;
+    static final private int MAX_CYCLES = 100;
     static public int MAX_THRESHOLD = 5;
     static public int critical_failure_count = 0;
 
@@ -21,12 +21,13 @@ public class Controller{
     private ArrayList<ArrayList<Double>> differences;
 
 
-    public Controller(int max_iterations, HashMap<Integer, List<Integer>> macro_tactics, HashMap<String, String> settings){
+    public Controller(int max_iterations, HashMap<Integer, List<Double>> macro_tactics, Map<String, String> settings){
         this.max_iterations = max_iterations;
         this.macro_tactics = macro_tactics;
         this.settings = settings;
 
-        if (settings.get("threshold") != null) {
+        if (!settings.get("threshold").equals("")) {
+            System.out.println("THRESH: " + settings.get("threshold"));
             Controller.MAX_THRESHOLD = Integer.parseInt(settings.get("threshold"));
         }
 
@@ -81,6 +82,7 @@ public class Controller{
             cycle++;
             critical_failures_list.add(Controller.critical_failure_count);
             differences.add(list_of_differences);
+            System.out.println(Controller.critical_failure_count);
         }
 
         cycle = 0;

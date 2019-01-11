@@ -8,11 +8,13 @@ public class Results {
     private Differences differences;
     private String dataType = "Sample Data";
     private long time;
+    private Map settings;
 
-    public Results(ArrayList<ArrayList<Integer>> results, ArrayList<ArrayList<Double>> differences, boolean usingFile, long time){
+    public Results(ArrayList<ArrayList<Integer>> results, ArrayList<ArrayList<Double>> differences, boolean usingFile, long time, Map settings){
         this.results = new Result(results);
         this.differences = new Differences(differences);
         this.time = time;
+        this.settings = settings;
 
         if(usingFile){
             dataType = "Custom Data Set";
